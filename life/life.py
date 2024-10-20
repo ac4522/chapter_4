@@ -92,6 +92,21 @@ class Game:
         pyplot.matshow(self.board, fignum=0, cmap='binary')
         pyplot.show()
 
+    def insert(self, pattern, location):
+        """Insert a pattern centered at the given location on the board."""
+        grid = pattern.grid
+        pattern_height, pattern_width = grid.shape
+        center_row, center_col = location
+        start_row = center_row - pattern_height // 2
+        start_col = center_col - pattern_width // 2
+        for i in range(pattern_height):
+            for j in range(pattern_width):
+                board_row = start_row + i
+                board_col = start_col + j
+                if (0 <= board_row < self.board.shape[0]
+                        and 0 <= board_col < self.board.shape[1]):
+                    self.board[board_row, board_col] = grid[i, j]
+
 
 class Pattern:
     """Pattern transformations."""
